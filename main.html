@@ -14,8 +14,18 @@
   Email: {{currentUser.email}}<br>
   Username: {{currentUser.name}}<br>
 
+  <p>You can create a new taskBoard <a href="/addtask">Here</a> </p>
 
-  
+
+  <br>
+  <p>My Taskboards</p>
+  {%for tb in currentTBs:%}
+  <p><a href="/tboard?key={{tb.key.id()}}">{{tb.name}}</a> </p>
+  {%endfor%}
+  <br>
+  <br>
+
+
   {% else: %}
   <p>Hello "Guest" welcome to the application</p>
   {% endif %}

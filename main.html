@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Home</title>
+</head>
+
+<body>
+
+  {% if user: %}
+  <p>Hello {{welcome}} "{{currentUser.name}}" to the application</p>
+  <p>Below you will find your details as currently entered into system</p>
+  Email: {{currentUser.email}}<br>
+  Username: {{currentUser.name}}<br>
+
+
+  
+  {% else: %}
+  <p>Hello "Guest" welcome to the application</p>
+  {% endif %}
+  <p>you can {{url_string}} <a href="{{url}}">here</a> </p>
+
+</body>
+
+</html>

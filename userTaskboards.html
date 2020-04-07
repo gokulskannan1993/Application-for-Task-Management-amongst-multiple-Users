@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>User Taskboard</title>
+</head>
+
+<body>
+
+  Hello {{currentUser.name}}, You can view your taskBoards Below <br><br>
+
+  <p>My Taskboards</p>
+  {%for tb in currentTBs:%}
+    <p><a href="/tboard?key={{tb.key.id()}}">{{tb.name}}</a> </p>
+  {%endfor%}
+  <br>
+
+
+  <p>Invited Taskboards</p>
+  {%for tb in invitedTBs:%}
+    <p><a href="/tboard?key={{tb.key.id()}}">{{tb.name}}</a> </p>
+  {%endfor%}
+
+
+
+</body>
+
+</html>

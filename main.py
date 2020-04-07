@@ -7,6 +7,7 @@ from google.appengine.api import users
 from user import User
 from addTask import AddTask
 from tboard import TBoard
+from userTaskboards import UserTaskboards
 
 
 
@@ -30,7 +31,6 @@ class MainPage(webapp2.RequestHandler):
         url_string = ''
         welcome = 'Welcome back'
         currentUser = None
-        currentTBs = []
 
 
 
@@ -58,11 +58,7 @@ class MainPage(webapp2.RequestHandler):
                 myuser.put()
                 userKey = ndb.Key('User',user.user_id())
                 currentUser = userKey.get()
-            else:
-                if currentUser.taskBoards:
-                    for keys in currentUser.taskBoards:
-                        taskboard = keys.get()
-                        currentTBs.append(taskboard)
+
 
 
 
@@ -77,7 +73,6 @@ class MainPage(webapp2.RequestHandler):
             'user' : user,
             'welcome': welcome,
             'currentUser':currentUser,
-            'currentTBs': currentTBs,
 
         }
 
@@ -90,7 +85,8 @@ app = webapp2.WSGIApplication(
             [
             ('/', MainPage),
             ('/addtask', AddTask),
-            ('/tboard', TBoard)
+            ('/tboard', TBoard),
+            ('/userTaskboards', UserTaskboards)
 
             ],
             debug = True

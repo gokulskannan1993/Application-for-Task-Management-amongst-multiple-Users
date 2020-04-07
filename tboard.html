@@ -7,10 +7,44 @@
 </head>
 
 <body>
-
-
   <p>Taskboard: {{tb.name}}</p>
   <p>Author : {{tb.author}}</p>
+  <p>Members: {%for i in tb.users:%}
+    '{{i}}'
+    {%endfor%}</p>
+
+  {%if currentUser.email == tb.author %}
+  <form action="/tboard?key={{tb.key.id()}}" method="post">
+    <p>Add a user</p>
+    <select name="SelectedUser">
+      {%for user in allUsers:%}
+      <option value="{{user.key.urlsafe()}}">{{user.name}}</option>
+      {%endfor%}
+    </select>
+    <input type="submit" name="button" value="AddUser">
+  </form>
+  {%endif%}
+
+  <p>Add a Task Below</p>
+
+  <form action="/tboard?key={{tb.key.id()}}" method="post">
+    Task Title : <input type="text" name="taskTitle">
+    Due Date : <input type="date" name="dueDate">
+    Assigned User: <select name="assignedUser">
+      {%for user in permittedUsers:%}
+      <option value="{{user.email}}">{{user.name}}</option>
+      {%endfor%}
+    </select>
+
+
+    <input type="submit" name="button" value="AddTask">
+
+  </form>
+  <br>
+  <br>
+
+  <p> <a href="/">Go Home</a> </p>
+
 
 </body>
 

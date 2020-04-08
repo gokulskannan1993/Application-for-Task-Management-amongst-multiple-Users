@@ -57,7 +57,12 @@
 
 
   <!-- to display the tasks as a table -->
-  <h4>All Tasks</h4>
+  <h3>All Tasks</h3>
+
+  <h5>Total Tasks    : {{totalTasks}}</h5>
+  <h5>Completed      : {{completedTasks}}</h5>
+  <h5>Active         : {{pendingTasks}}</h5>
+  <h5>Completed Today: {{completedToday}}</h5>
 
   <form action="/tboard?key={{tb.key.id()}}" method="post">
     <table>

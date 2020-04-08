@@ -46,6 +46,28 @@ class TBoard(webapp2.RequestHandler):
 
 
 
+        # for displaying counters
+        totalTasks = len(tb.tasks)
+        pendingTasks = 0
+        completedTasks = 0
+        completedToday = 0
+
+        # get todays date
+        today = datetime.now().strftime("%d/%m/%Y")
+
+
+        for task in tb.tasks:
+            if task.isCompleted:
+                completedTasks+=1
+                completedDate = task.completedOn.split(" ")[0]
+                if completedDate == today:
+                    completedToday +=1
+            else:
+                pendingTasks+=1
+
+
+
+
 
 
 
@@ -53,7 +75,11 @@ class TBoard(webapp2.RequestHandler):
             'tb': tb,
             'currentUser': currentUser,
             'allUsers': allUsers,
-            'permittedUsers': permittedUsers
+            'permittedUsers': permittedUsers,
+            'totalTasks': totalTasks,
+            'pendingTasks': pendingTasks,
+            'completedTasks': completedTasks,
+            'completedToday': completedToday
 
         }
 
@@ -114,7 +140,7 @@ class TBoard(webapp2.RequestHandler):
                     user = assignedUser,
                     isCompleted = False
                 )
-                
+
                 # add the task to the board
                 tb.tasks.append(newTask)
                 tb.put()

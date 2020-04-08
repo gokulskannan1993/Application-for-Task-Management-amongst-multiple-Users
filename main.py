@@ -8,6 +8,7 @@ from user import User
 from addTask import AddTask
 from tboard import TBoard
 from userTaskboards import UserTaskboards
+from editBoard import EditBoard
 
 from editTask import EditTask
 
@@ -87,7 +88,8 @@ app = webapp2.WSGIApplication(
             ('/addtask', AddTask),
             ('/tboard', TBoard),
             ('/userTaskboards', UserTaskboards),
-            ('/editTask', EditTask)
+            ('/editTask', EditTask),
+            ('/editBoard', EditBoard)
 
             ],
             debug = True

@@ -5,7 +5,35 @@
     <title>Edit Taskboard</title>
   </head>
   <body>
-    
+
+
+
+    <!-- to change the name of taskboard -->
+    <form  action="/editBoard?key={{tb.key.id()}}" method="post">
+      Taskboard Name: <input type="text" name="boardName" value="{{tb.name}}">
+      <input type="submit" name="button" value="EditName">
+    </form>
+
+    <br>
+    <br>
+
+    <!-- to edit the users -->
+    {%if noOfUsers:%}
+    <form  action="/editBoard?key={{tb.key.id()}}" method="post">
+      {%for user in permittedUsers:%}
+      <input type="checkbox" name="tb_user" value="{{user.email}}">{{user.email}}<br>
+      {%endfor%}
+      <br>
+      <input type="submit" name="button" value="RemoveUsers">
+    </form>
+    {%endif%}
+
+
+    <br>
+    <br>
+
+    <!-- go back to board -->
+    <a href="/tboard?key={{tb.key.id()}}">Go Back</a>
 
   </body>
 </html>

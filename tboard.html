@@ -7,7 +7,12 @@
 </head>
 
 <body>
-  <p>Taskboard: {{tb.name}} <a href="#">Edit Taskboard</a> </p>
+  {%if currentUser.email == tb.author:%}
+  <p>Taskboard: {{tb.name}} <a href="/editBoard?key={{tb.key.id()}}">Edit Taskboard</a> </p>
+  {%else:%}
+  <p>Taskboard: {{tb.name}}</p>
+  {%endif%}
+
   <p>Author : {{tb.author}}</p>
   <p>Members: {%for i in permittedUsers:%}
     {{i.name}}
@@ -65,9 +70,16 @@
       </tr>
       {%for t in tb.tasks:%}
       <tr>
+        {% if t.user == 'Unassigned':%}
+        <td style="color: red;">{{t.title}}</td>
+        <td style="color: red;">{{t.dueDate}}</td>
+        <td style="color: red;">{{t.user}}</td>
+        {%else:%}
         <td>{{t.title}}</td>
         <td>{{t.dueDate}}</td>
         <td>{{t.user}}</td>
+        {%endif%}
+
         {%if t.isCompleted == true%}
         <td>Completed on {{t.completedOn}}</td>
         {%else%}

@@ -59,9 +59,9 @@
   <!-- to display the tasks as a table -->
   <h3>All Tasks</h3>
 
-  <h5>Total Tasks    : {{totalTasks}}</h5>
-  <h5>Completed      : {{completedTasks}}</h5>
-  <h5>Active         : {{pendingTasks}}</h5>
+  <h5>Total Tasks : {{totalTasks}}</h5>
+  <h5>Completed : {{completedTasks}}</h5>
+  <h5>Active : {{pendingTasks}}</h5>
   <h5>Completed Today: {{completedToday}}</h5>
 
   <form action="/tboard?key={{tb.key.id()}}" method="post">
@@ -110,9 +110,12 @@
   </form>
 
 
+  <br><br>
 
-
-
+  <!-- to delete the taskboard -->
+  <form action="/tboard?key={{tb.key.id()}}" method="post">
+    <input type="submit" name="button" value="DeleteTaskboard">
+  </form>
 
 
 

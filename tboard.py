@@ -158,3 +158,18 @@ class TBoard(webapp2.RequestHandler):
                 tb.tasks[int(index)].completedOn = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             tb.put()
             self.redirect('/tboard?key= '+str(tb.key.id()))
+
+        # to delete taskboard
+        elif action == 'DeleteTaskboard':
+
+            totalUsers = len(tb.users)
+            totalTasks = len(tb.tasks)
+            if totalUsers == 0 and totalTasks == 0:
+                for key in currentUser.taskBoards:
+                    if tb.key == key:
+                        currentUser.taskBoards.remove(key)
+                currentUser.put()
+                tb.key.delete()
+                self.redirect('/userTaskboards')
+            else:
+                self.response.write('The board cannot be deleted as it still has memebers or tasks')

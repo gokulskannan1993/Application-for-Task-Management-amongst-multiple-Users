@@ -9,7 +9,7 @@ from addTask import AddTask
 from tboard import TBoard
 from userTaskboards import UserTaskboards
 
-
+from editTask import EditTask
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -86,7 +86,8 @@ app = webapp2.WSGIApplication(
             ('/', MainPage),
             ('/addtask', AddTask),
             ('/tboard', TBoard),
-            ('/userTaskboards', UserTaskboards)
+            ('/userTaskboards', UserTaskboards),
+            ('/editTask', EditTask)
 
             ],
             debug = True

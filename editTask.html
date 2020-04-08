@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Task</title>
+  </head>
+  <body>
+    <h3>Edit Task Below</h3>
+    <form action="/editTask?tbKey={{taskboard.key.id()}}&task={{index}}" method="post">
+      Task Title : <input type="text" name="task_title" value="{{task.title}}">
+      Due Date   : <input type="date" name="task_due_date" value="{{task.dueDate}}">
+      Assigned To: <select name="task_assigned">
+        {%for user in permittedUsers%}
+        <option value="{{user.email}}">{{user.email}}</option>
+        {%endfor%}
+      </select>
+
+      <input type="submit"  name="button" value="Edit">
+      <input type="submit"  name="button" value="Delete">
+      <input type="submit" name="button" value="Cancel">
+    </form>
+
+
+  </body>
+</html>

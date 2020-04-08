@@ -7,12 +7,15 @@
 </head>
 
 <body>
-  <p>Taskboard: {{tb.name}}</p>
+  <p>Taskboard: {{tb.name}} <a href="#">Edit Taskboard</a> </p>
   <p>Author : {{tb.author}}</p>
-  <p>Members: {%for i in tb.users:%}
-    '{{i}}'
+  <p>Members: {%for i in permittedUsers:%}
+    {{i.name}}
     {%endfor%}</p>
 
+
+
+  <!-- for adding a user to task , only visible to author -->
   {%if currentUser.email == tb.author %}
   <form action="/tboard?key={{tb.key.id()}}" method="post">
     <p>Add a user</p>
@@ -25,6 +28,10 @@
   </form>
   {%endif%}
 
+
+
+
+  <!-- for adding task -->
   <p>Add a Task Below</p>
 
   <form action="/tboard?key={{tb.key.id()}}" method="post">
@@ -32,7 +39,7 @@
     Due Date : <input type="date" name="dueDate">
     Assigned User: <select name="assignedUser">
       {%for user in permittedUsers:%}
-      <option value="{{user.email}}">{{user.name}}</option>
+      <option value="{{user.email}}">{{user.email}}</option>
       {%endfor%}
     </select>
 
@@ -43,6 +50,56 @@
   <br>
   <br>
 
+
+  <!-- to display the tasks as a table -->
+  <h4>All Tasks</h4>
+
+  <form action="/tboard?key={{tb.key.id()}}" method="post">
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Due date</th>
+        <th>Assigned To</th>
+        <th>Is Completed</th>
+        <th></th>
+      </tr>
+      {%for t in tb.tasks:%}
+      <tr>
+        <td>{{t.title}}</td>
+        <td>{{t.dueDate}}</td>
+        <td>{{t.user}}</td>
+        {%if t.isCompleted == true%}
+        <td>Completed on {{t.completedOn}}</td>
+        {%else%}
+        <td><input type="checkbox" name="isCompleted" value="{{loop.index-1}}">Mark Completed</td>
+        {%endif%}
+        <td> <a href="/editTask?tbKey={{tb.key.id()}}&task={{loop.index-1}}">Edit</a> </td>
+      </tr>
+      {%endfor%}
+
+
+      <style media="screen">
+        td,
+        th {
+          border: 1px solid black;
+          padding: 1em;
+        }
+      </style>
+    </table>
+    <br>
+
+    <!-- to mark a task as completed -->
+    <input type="submit" name="button" value="MarkCompleted">
+  </form>
+
+
+
+
+
+
+
+
+  <!-- redirects back to home -->
   <p> <a href="/">Go Home</a> </p>
 
 

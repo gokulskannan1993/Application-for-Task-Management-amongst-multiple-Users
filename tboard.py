@@ -172,4 +172,4 @@ class TBoard(webapp2.RequestHandler):
                 tb.key.delete()
                 self.redirect('/userTaskboards')
             else:
-                self.response.write('The board cannot be deleted as it still has memebers or tasks')
+                self.response.write('The board cannot be deleted as it still has members or tasks')

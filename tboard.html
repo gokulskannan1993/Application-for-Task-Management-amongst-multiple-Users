@@ -111,11 +111,13 @@
 
 
   <br><br>
-
+  {%if currentUser.email == tb.author:%}
   <!-- to delete the taskboard -->
   <form action="/tboard?key={{tb.key.id()}}" method="post">
     <input type="submit" name="button" value="DeleteTaskboard">
   </form>
+  {%endif%}
+
 
 
 

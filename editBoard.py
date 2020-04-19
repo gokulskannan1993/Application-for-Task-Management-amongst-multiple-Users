@@ -18,6 +18,11 @@ class EditBoard(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/html'
 
+        # for getting current user
+        user = users.get_current_user()
+        userKey = ndb.Key('User',user.user_id())
+        currentUser = userKey.get()
+
         # get the taskboard object
         tb = ndb.Key('Taskboard', int(self.request.get('key'))).get()
 
@@ -36,7 +41,8 @@ class EditBoard(webapp2.RequestHandler):
         template_values = {
             'tb': tb,
             'permittedUsers': permittedUsers,
-            'noOfUsers': len(permittedUsers)
+            'noOfUsers': len(permittedUsers),
+            'currentUser': currentUser
         }
 
         template = JINJA_ENVIRONMENT.get_template('editBoard.html')

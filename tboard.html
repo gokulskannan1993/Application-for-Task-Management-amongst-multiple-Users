@@ -7,11 +7,8 @@
 </head>
 
 <body>
-  {%if currentUser.email == tb.author:%}
   <p>Taskboard: {{tb.name}} <a href="/editBoard?key={{tb.key.id()}}">Edit Taskboard</a> </p>
-  {%else:%}
-  <p>Taskboard: {{tb.name}}</p>
-  {%endif%}
+
 
   <p>Author : {{tb.author}}</p>
   <p>Members: {%for i in permittedUsers:%}

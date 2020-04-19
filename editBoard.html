@@ -18,6 +18,7 @@
     <br>
 
     <!-- to edit the users -->
+    {%if tb.author == currentUser.email%}
     {%if noOfUsers:%}
     <form  action="/editBoard?key={{tb.key.id()}}" method="post">
       {%for user in permittedUsers:%}
@@ -26,6 +27,7 @@
       <br>
       <input type="submit" name="button" value="RemoveUsers">
     </form>
+    {%endif%}
     {%endif%}
 
 

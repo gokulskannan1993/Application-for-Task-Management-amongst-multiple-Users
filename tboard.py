@@ -152,11 +152,11 @@ class TBoard(webapp2.RequestHandler):
         # to mark the task completed
         elif action == 'MarkCompleted':
             marked = self.request.get('isCompleted', allow_multiple = True)
-
-            for index in marked:
-                tb.tasks[int(index)].isCompleted = True
-                tb.tasks[int(index)].completedOn = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-            tb.put()
+            if len(marked):
+                for index in marked:
+                    tb.tasks[int(index)].isCompleted = True
+                    tb.tasks[int(index)].completedOn = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                tb.put()
             self.redirect('/tboard?key= '+str(tb.key.id()))
 
         # to delete taskboard

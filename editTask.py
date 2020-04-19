@@ -74,6 +74,9 @@ class EditTask(webapp2.RequestHandler):
 
         # if the user wants to edit
         if action == 'Edit':
+            name = self.request.get('task_title')
+
+
             tb.tasks[index].user = self.request.get('task_assigned')
             tb.tasks[index].dueDate = self.request.get('task_due_date')
             tb.tasks[index].title = self.request.get('task_title')

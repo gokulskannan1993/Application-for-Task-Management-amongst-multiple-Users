@@ -62,33 +62,33 @@ class EditBoard(webapp2.RequestHandler):
         # for removing users
         elif action == 'RemoveUsers':
             selectedUsers = self.request.get('tb_user', allow_multiple=True)
+            if len(selectedUsers):
+                # mark the tasks Unassigned
+                for user in selectedUsers:
+                    for task in tb.tasks:
+                        if task.user == user:
+                            task.user = 'Unassigned'
+                tb.put()
 
-            # mark the tasks Unassigned
-            for user in selectedUsers:
-                for task in tb.tasks:
-                    if task.user == user:
-                        task.user = 'Unassigned'
-            tb.put()
+                # delete the board from user model
+                allUsers = []
+                for email in selectedUsers:
+                    query = User.query(User.email == email).fetch()
+                    allUsers.append(query[0])
 
-            # delete the board from user model
-            allUsers = []
-            for email in selectedUsers:
-                query = User.query(User.email == email).fetch()
-                allUsers.append(query[0])
-
-            for user in allUsers:
-                for task in user.invitedTBs:
-                    if tb.key == task:
-                        user.invitedTBs.remove(task)
-            user.put()
+                for user in allUsers:
+                    for task in user.invitedTBs:
+                        if tb.key == task:
+                            user.invitedTBs.remove(task)
+                user.put()
 
 
-            # delete the user from board
-            for user in selectedUsers:
-                for email in tb.users:
-                    if email == user:
-                        tb.users.remove(email)
+                # delete the user from board
+                for user in selectedUsers:
+                    for email in tb.users:
+                        if email == user:
+                            tb.users.remove(email)
 
-            tb.put()
+                tb.put()
 
             self.redirect('/editBoard?key= '+str(tb.key.id()))
